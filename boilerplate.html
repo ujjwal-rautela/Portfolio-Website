@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 
+      Task 4.2: SEO & Accessibility 
+I MADE ALL OF THIS WITH GEMINI FOR REFERENCE NOW THIS IS JUST THE BOILERPLATE VERSION I WILL BE EDITING AND MAKING MY OWN CUSTOM VERSION OF IT MYSELF NOW 
+      Update these with your personal details.
+    -->
+    <title>[Your Name] - [Your Role, e.g., Frontend Developer]</title>
+    <meta name="description" content="The personal portfolio of [Your Name], a passionate [Your Role] showcasing my projects and skills.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles & Theme Variables -->
+    <style>
+        /* Task 3.1: Multi-Theme Toggle
+          Define your color variables here. We start with a light theme.
+          The [data-theme='dark'] selector will override these for dark mode.
+        */
+        :root {
+            --background: #ffffff;
+            --text-primary: #111827; /* gray-900 */
+            --text-secondary: #4b5563; /* gray-600 */
+            --accent: #3b82f6; /* blue-500 */
+            --card-bg: #f9fafb; /* gray-50 */
+            --border-color: #e5e7eb; /* gray-200 */
+        }
+
+        [data-theme='dark'] {
+            --background: #111827;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db; /* gray-300 */
+            --accent: #60a5fa; /* blue-400 */
+            --card-bg: #1f2937; /* gray-800 */
+            --border-color: #374151; /* gray-700 */
+        }
+        
+        [data-theme='matrix'] {
+            --background: #000000;
+            --text-primary: #00ff41;
+            --text-secondary: #00ff41;
+            --accent: #00ff41;
+            --card-bg: #0d0d0d;
+            --border-color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Helper classes for applying theme colors */
+        .bg-theme { background-color: var(--background); }
+        .bg-card { background-color: var(--card-bg); }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .text-accent { color: var(--accent); }
+        .border-theme { border-color: var(--border-color); }
+    </style>
+</head>
+<body class="bg-theme text-primary">
+
+    <!-- 
+      Task 1.3: Basic Structure & Navigation 
+      A fixed header that stays at the top.
+    -->
+    <header class="bg-theme/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 border-b border-theme">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-accent">[Your Name]</a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-secondary hover:text-accent transition-colors">Home</a>
+                <a href="#resume" class="text-secondary hover:text-accent transition-colors">Resume</a>
+                <a href="#uses" class="text-secondary hover:text-accent transition-colors">Uses</a>
+                <a href="#testimonials" class="text-secondary hover:text-accent transition-colors">Testimonials</a>
+            </nav>
+            <!-- Theme Toggle Placeholder -->
+            <div id="theme-switcher-placeholder" class="flex items-center space-x-2">
+                <!-- Icons will be added here via JS -->
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-24">
+
+        <!-- 
+          Task 3.3: Impactful Hero Section 
+        -->
+        <section id="home" class="min-h-screen flex items-center">
+            <div class="w-full text-center md:text-left">
+                <h1 class="text-5xl md:text-7xl font-black mb-4">
+                    <span class="text-secondary">Hi, I'm [Your Name].</span><br>
+                    <span id="typing-animation" class="text-accent"></span>
+                </h1>
+                <p class="text-xl text-secondary max-w-2xl mx-auto md:mx-0">
+                    I design and build beautiful, responsive, and user-friendly things for the web.
+                </p>
+                <!-- Interactive Background Canvas (Optional) -->
+                <!-- <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full -z-10"></canvas> -->
+            </div>
+        </section>
+
+        <!-- 
+          Task 3.2: Interactive Resume 
+        -->
+        <section id="resume" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">My Resume</h2>
+            <div class="bg-card border border-theme rounded-lg p-8 text-center">
+                <p class="text-secondary mb-6">This section will contain an interactive timeline of my experience and skills.</p>
+                <a href="/resume.pdf" download class="bg-accent text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
+                    Download PDF Version
+                </a>
+            </div>
+            <!-- Resume content will be dynamically generated here -->
+            <div id="resume-content" class="mt-12"></div>
+        </section>
+
+        <!-- 
+          Task 2.1: "Uses" Page
+        -->
+        <section id="uses" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">My Setup</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Example Card -->
+                <div class="bg-card border border-theme rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-2">Hardware</h3>
+                    <ul class="list-disc list-inside text-secondary space-y-1">
+                        <li>MacBook Pro 16"</li>
+                        <li>Dell 27" 4K Monitor</li>
+                        <li>Keychron K2 Keyboard</li>
+                    </ul>
+                </div>
+                 <div class="bg-card border border-theme rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-2">Software</h3>
+                    <ul class="list-disc list-inside text-secondary space-y-1">
+                        <li>VS Code</li>
+                        <li>Figma</li>
+                        <li>iTerm2</li>
+                    </ul>
+                </div>
+                 <div class="bg-card border border-theme rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-2">Desk</h3>
+                    <ul class="list-disc list-inside text-secondary space-y-1">
+                        <li>Autonomous SmartDesk</li>
+                        <li>Herman Miller Aeron Chair</li>
+                        <li>Lots of coffee</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          Task 2.2: Testimonials Section 
+        -->
+        <section id="testimonials" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">What Others Say</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Example Testimonial Card -->
+                <div class="bg-card border border-theme rounded-lg p-8">
+                    <p class="text-secondary italic mb-6">"[Testimonial quote will go here. A glowing review of your skills and work ethic.]"</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/48x48/e0e0e0/757575?text=AV" alt="Person's Name" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold text-primary">[Person's Name]</p>
+                            <p class="text-sm text-secondary">[Person's Title, Company]</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add another card here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 
+      Task 1.3: Shared Footer
+    -->
+    <footer class="border-t border-theme mt-20">
+        <div class="container mx-auto px-6 py-8 text-center text-secondary">
+            <p>&copy; <span id="year"></span> [Your Name]. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Built with ❤️ and a lot of coffee.</p>
+        </div>
+    </footer>
+
+    <!-- 
+      JavaScript for Interactivity
+      - Theme Switching
+      - Typing Animation
+      - Dynamic Content Loading
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Set current year in footer ---
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // --- Task 3.1: Theme Switcher Logic ---
+            const themeSwitcherPlaceholder = document.getElementById('theme-switcher-placeholder');
+            const themes = ['light', 'dark', 'matrix'];
+            let currentTheme = localStorage.getItem('portfolio-theme') || 'light';
+
+            const applyTheme = (theme) => {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('portfolio-theme', theme);
+                currentTheme = theme;
+                renderSwitcher();
+            };
+            
+            const renderSwitcher = () => {
+                themeSwitcherPlaceholder.innerHTML = ''; // Clear existing icons
+                themes.forEach(theme => {
+                    const button = document.createElement('button');
+                    button.innerHTML = theme === 'light' ? '☀️' : theme === 'dark' ? '🌙' : '💻';
+                    button.className = `p-2 rounded-full text-xl ${currentTheme === theme ? 'bg-accent/20' : ''}`;
+                    button.onclick = () => applyTheme(theme);
+                    themeSwitcherPlaceholder.appendChild(button);
+                });
+            };
+
+            applyTheme(currentTheme); // Apply saved theme on load
+
+            // --- Task 3.3: Typing Animation Placeholder ---
+            // You can use a library like Typed.js for this
+            const typingElement = document.getElementById('typing-animation');
+            if(typingElement) {
+                // Example: just to show it works. Replace with a real library.
+                const roles = ['Frontend Developer', 'UI/UX Enthusiast', 'Creative Coder'];
+                let roleIndex = 0;
+                let charIndex = 0;
+
+                function type() {
+                    if (charIndex < roles[roleIndex].length) {
+                        typingElement.textContent += roles[roleIndex].charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, 100);
+                    } else {
+                        setTimeout(erase, 2000);
+                    }
+                }
+
+                function erase() {
+                    if (charIndex > 0) {
+                        typingElement.textContent = roles[roleIndex].substring(0, charIndex - 1);
+                        charIndex--;
+                        setTimeout(erase, 50);
+                    } else {
+                        roleIndex = (roleIndex + 1) % roles.length;
+                        setTimeout(type, 500);
+                    }
+                }
+                type();
+            }
+
+            // --- Other JS logic would go here ---
+        });
+    </script>
+</body>
+</html>
