@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 
+      Task 4.2: SEO & Accessibility 
+      Update these with your personal details.
+    -->
+    <title>Ujjwal Rautela - Portfolio</title>
+    <meta name="description" content="The personal portfolio of Ujjwal Rautela, a passionate developer showcasing my projects, skills, and experience.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles & Theme Variables -->
+    <style>
+        /* Task 3.1: Multi-Theme Toggle */
+        :root {
+            --background: #ffffff;
+            --text-primary: #111827; /* gray-900 */
+            --text-secondary: #4b5563; /* gray-600 */
+            --accent: #3b82f6; /* blue-500 */
+            --card-bg: #f9fafb; /* gray-50 */
+            --border-color: #e5e7eb; /* gray-200 */
+        }
+
+        [data-theme='dark'] {
+            --background: #111827;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db; /* gray-300 */
+            --accent: #60a5fa; /* blue-400 */
+            --card-bg: #1f2937; /* gray-800 */
+            --border-color: #374151; /* gray-700 */
+        }
+        
+        [data-theme='matrix'] {
+            --background: #000000;
+            --text-primary: #00ff41;
+            --text-secondary: #00ff41;
+            --accent: #00ff41;
+            --card-bg: #0d0d0d;
+            --border-color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Helper classes for applying theme colors */
+        .bg-theme { background-color: var(--background); }
+        .bg-card { background-color: var(--card-bg); }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .text-accent { color: var(--accent); }
+        .border-theme { border-color: var(--border-color); }
+        .fill-theme-secondary { fill: var(--text-secondary); }
+        .fill-accent { fill: var(--accent); }
+
+
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid var(--border-color);
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem; /* Adjust to center the dot on the line */
+            top: 0.25rem;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 50%;
+            background-color: var(--accent);
+        }
+    </style>
+</head>
+<body class="bg-theme text-primary">
+
+    <!-- 
+      Task 1.3: Basic Structure & Navigation 
+    -->
+    <header class="bg-theme/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 border-b border-theme">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-accent">Ujjwal Rautela</a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-secondary hover:text-accent transition-colors">Home</a>
+                <a href="#resume" class="text-secondary hover:text-accent transition-colors">Resume</a>
+                <a href="#uses" class="text-secondary hover:text-accent transition-colors">Uses</a>
+                <a href="#testimonials" class="text-secondary hover:text-accent transition-colors">Testimonials</a>
+                <a href="#connect" class="text-secondary hover:text-accent transition-colors">Connect</a>
+            </nav>
+            <div id="theme-switcher-placeholder" class="flex items-center space-x-2"></div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-24">
+
+        <!-- 
+          Task 3.3: Impactful Hero Section 
+        -->
+        <section id="home" class="min-h-screen flex items-center">
+            <div class="w-full text-center md:text-left">
+                <h1 class="text-5xl md:text-7xl font-black mb-4">
+                    <span class="text-secondary">Hi, I'm Ujjwal Rautela.</span><br>
+                    <span id="typing-animation" class="text-accent"></span>
+                </h1>
+                <p class="text-xl text-secondary max-w-2xl mx-auto md:mx-0">
+                    I design and build beautiful, responsive, and user-friendly things for the web. Cybersecurity enthusiast. Storyteller. Builder. I blend tech with clarity whether it's writing clean Python, securing systems, or creating content that actually connects.
+                </p>
+            </div>
+        </section>
+
+        <!-- 
+          Task 3.2: Interactive Resume 
+        -->
+        <section id="resume" class="py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold">My Resume</h2>
+                <p class="text-secondary mt-2">A summary of my career, skills, and projects.</p>
+                <a href="ResumeUjjwalRautela.pdf" download="Ujjwal Rautela - Resume.pdf" class="mt-6 inline-block bg-accent text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
+                    Download PDF Version
+                </a>
+            </div>
+            
+            <!-- Resume content will be dynamically generated here -->
+            <div id="resume-content" class="max-w-4xl mx-auto"></div>
+        </section>
+
+        <!-- 
+          Task 2.1: "Uses" Page
+        -->
+        <section id="uses" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">My Setup</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-card border border-theme rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-2">Hardware</h3>
+                    <ul class="list-disc list-inside text-secondary space-y-1">
+                        <li>Asus TUF A15</li>
+                        <li>Sony 27" 2K Monitor</li>
+                        <li>Evofox Katana Keyboard</li>
+                    </ul>
+                </div>
+                 <div class="bg-card border border-theme rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-2">Software</h3>
+                    <ul class="list-disc list-inside text-secondary space-y-1">
+                        <li>VS Code</li>
+                        <li>Figma</li>
+                        <li>n8n</li>
+                    </ul>
+                </div>
+                 <div class="bg-card border border-theme rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-2">Desk</h3>
+                    <ul class="list-disc list-inside text-secondary space-y-1">
+                        <li>My Desk</li>
+                        <li>My Basic Chair</li>
+                        <li>Lots of coffee</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          Task 2.2: Testimonials Section 
+        -->
+        <section id="testimonials" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">What Others Say</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-card border border-theme rounded-lg p-8">
+                    <p class="text-secondary italic mb-6">"[Testimonial quote will go here. i just need to find someone to gimme testimonial then.]"</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/48x48/e0e0e0/757575?text=AV" alt="Person's Name" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold text-primary">[ Name]</p>
+                            <p class="text-sm text-secondary">[ Title, Company]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card border border-theme rounded-lg p-8">
+                    <p class="text-secondary italic mb-6">"[testimonial bla bla bla xyz koi dedo testimonial plz]"</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/48x48/e0e0e0/757575?text=AV" alt="Person's Name" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold text-primary">[Another Person]</p>
+                            <p class="text-sm text-secondary">[Their Title, Company]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          NEW: Social Links Section
+        -->
+        <section id="connect" class="py-20 text-center">
+            <h2 class="text-4xl font-bold mb-4">Let's Connect</h2>
+            <p class="text-secondary mb-8 max-w-xl mx-auto">I'm always open to connecting, discussing new projects, or sharing ideas. Feel free to reach out on any of these platforms!</p>
+            <div class="flex justify-center items-center space-x-6">
+                <!-- Twitter (X) -->
+                <a href="https://x.com/ujjwalrautela" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-accent transition-colors">
+                    <svg class="w-8 h-8 fill-theme-secondary hover:fill-accent transition-colors" viewBox="0 0 24 24" aria-label="X logo">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                    </svg>
+                </a>
+                <!-- GitHub -->
+                <a href="https://github.com/ujjwal-rautela" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-accent transition-colors">
+                    <svg class="w-8 h-8 fill-theme-secondary hover:fill-accent transition-colors" viewBox="0 0 24 24" aria-label="GitHub logo">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path>
+                    </svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/ujjwal-rautela" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-accent transition-colors">
+                    <svg class="w-8 h-8 fill-theme-secondary hover:fill-accent transition-colors" viewBox="0 0 24 24" aria-label="LinkedIn logo">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                    </svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/ujjwal.rautela" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-accent transition-colors">
+                    <svg class="w-8 h-8 fill-theme-secondary hover:fill-accent transition-colors" viewBox="0 0 24 24" aria-label="Instagram logo">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"></path>
+                    </svg>
+                </a>
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@ujjwalrautela" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-accent transition-colors">
+                    <svg class="w-8 h-8 fill-theme-secondary hover:fill-accent transition-colors" viewBox="0 0 24 24" aria-label="YouTube logo">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 
+      Task 1.3: Shared Footer
+    -->
+    <footer class="border-t border-theme mt-20">
+        <div class="container mx-auto px-6 py-8 text-center text-secondary">
+            <p>&copy; <span id="year"></span> Ujjwal Rautela. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Built with &hearts; and a lot of coffee.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Set current year in footer ---
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // --- Task 3.1: Theme Switcher Logic ---
+            const themeSwitcherPlaceholder = document.getElementById('theme-switcher-placeholder');
+            const themes = ['light', 'dark', 'matrix'];
+            let currentTheme = localStorage.getItem('portfolio-theme') || 'light';
+
+            const applyTheme = (theme) => {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('portfolio-theme', theme);
+                currentTheme = theme;
+                renderSwitcher();
+            };
+            
+            const renderSwitcher = () => {
+                themeSwitcherPlaceholder.innerHTML = '';
+                themes.forEach(theme => {
+                    const button = document.createElement('button');
+                    button.innerHTML = theme === 'light' ? '☀️' : theme === 'dark' ? '🌙' : '?';
+                    button.className = `p-2 rounded-full text-xl transition-transform duration-200 hover:scale-110 ${currentTheme === theme ? 'bg-accent/20' : ''}`;
+                    button.onclick = () => applyTheme(theme);
+                    themeSwitcherPlaceholder.appendChild(button);
+                });
+            };
+
+            applyTheme(currentTheme);
+
+            // --- Task 3.3: Typing Animation ---
+            const typingElement = document.getElementById('typing-animation');
+            if(typingElement) {
+                const roles = ['Frontend Developer', 'AI Automation Specialist', 'Creative Coder'];
+                let roleIndex = 0;
+                let charIndex = 0;
+                let isErasing = false;
+
+                function type() {
+                    const currentRole = roles[roleIndex];
+                    if (isErasing) {
+                        typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isErasing = false;
+                            roleIndex = (roleIndex + 1) % roles.length;
+                        }
+                    } else {
+                        typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentRole.length) {
+                            isErasing = true;
+                            setTimeout(type, 2000); // Pause before erasing
+                            return;
+                        }
+                    }
+                    setTimeout(type, isErasing ? 50 : 100);
+                }
+                type();
+            }
+
+            // --- Task 3.2: Interactive Resume Data & Rendering ---
+            const resumeData = {
+                experience: [
+                    {
+                        role: "Freelance Content Curator & Cinematographer",
+                        company: "Self-employed",
+                        period: "2023 - Present",
+                        description: "Collaborated with bands and clubs to create engaging digital content, specializing in product cinematography and short-form promotional videos."
+                    },
+                    {
+                        role: "Squadron Leader",
+                        company: "National Service Scheme (NSS)",
+                        period: "College",
+                        description: "Led a team of 200 volunteers in organizing social initiatives. Delivered sessions on cybersecurity, career guidance, and student counseling."
+                    }
+                ],
+                education: [
+                    {
+                        degree: "Bachelor of Computer Applications (BCA)",
+                        institution: "Graphic Era Hill University, Dehradun",
+                        period: "AUG 2022 - AUG 2025"
+                    }
+                ],
+                projects: [
+                    {
+                        title: "Parking Tracker App",
+                        description: "Developed an app to book parking slots and track vehicles in real-time using Google Maps API. Features in-app purchases and real-time slot booking."
+                    },
+                    {
+                        title: "Linux Cheat Sheet App",
+                        description: "A beginner-friendly app that assists students and new users in navigating the Linux command line easily."
+                    },
+                    {
+                        title: "Python Automation & AI Workflows",
+                        description: "Built a collection of Python scripts and AI-driven workflows to automate tasks and create intelligent API-integrated agents using n8n and OpenAI."
+                    }
+                ],
+                skills: [
+                    "Python", "HTML", "CSS", "JavaScript", "Cybersecurity", "Git &amp; GitHub", "n8n", "AI Automation", "API Integration", "Web Deployment"
+                ],
+                certifications: [
+                    "NSS B and C Certificates", "Startup Architecture", "Cybersecurity Courses (Coursera)", "Python Courses (Udemy)"
+                ]
+            };
+
+            const resumeContentEl = document.getElementById('resume-content');
+            if (resumeContentEl) {
+                // A helper function to create section titles
+                const createSectionTitle = (title) => `<h3 class="text-2xl font-bold text-accent mb-8">${title}</h3>`;
+
+                // Render Experience
+                let html = createSectionTitle('Experience');
+                html += '<div class="relative">';
+                resumeData.experience.forEach(item => {
+                    html += `
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <p class="text-sm text-secondary">${item.period}</p>
+                            <h4 class="text-xl font-bold text-primary">${item.role}</h4>
+                            <p class="font-medium text-secondary mb-2">${item.company}</p>
+                            <p class="text-secondary">${item.description}</p>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+
+                // Render Education
+                html += '<div class="mt-12">';
+                html += createSectionTitle('Education');
+                html += '<div class="relative">';
+                resumeData.education.forEach(item => {
+                    html += `
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <p class="text-sm text-secondary">${item.period}</p>
+                            <h4 class="text-xl font-bold text-primary">${item.degree}</h4>
+                            <p class="font-medium text-secondary">${item.institution}</p>
+                        </div>
+                    `;
+                });
+                html += '</div></div>';
+
+                // Render Projects
+                html += '<div class="mt-12">';
+                html += createSectionTitle('Projects');
+                html += '<div class="grid md:grid-cols-2 gap-6">';
+                resumeData.projects.forEach(item => {
+                    html += `
+                        <div class="bg-card border border-theme rounded-lg p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                            <h4 class="text-lg font-bold text-primary mb-2">${item.title}</h4>
+                            <p class="text-secondary">${item.description}</p>
+                        </div>
+                    `;
+                });
+                html += '</div></div>';
+                
+                // Render Skills & Certifications
+                html += '<div class="mt-12 grid md:grid-cols-2 gap-12">';
+                
+                // Skills
+                html += '<div>';
+                html += createSectionTitle('Skills');
+                html += '<div class="flex flex-wrap gap-2">';
+                resumeData.skills.forEach(item => {
+                    html += `<span class="bg-accent/10 text-accent text-sm font-medium px-3 py-1 rounded-full">${item}</span>`;
+                });
+                html += '</div></div>';
+
+                // Certifications
+                html += '<div>';
+                html += createSectionTitle('Certifications');
+                html += '<div class="flex flex-wrap gap-2">';
+                resumeData.certifications.forEach(item => {
+                    html += `<span class="bg-card border border-theme text-secondary text-sm font-medium px-3 py-1 rounded-full">${item}</span>`;
+                });
+                html += '</div></div>';
+
+                html += '</div>';
+
+                resumeContentEl.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+</html>
