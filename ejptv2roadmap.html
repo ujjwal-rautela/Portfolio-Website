@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eJPT v2 Interactive Success Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate Gray Harmony -->
+    <!-- Application Structure Plan: The application is designed as a multi-section, single-page dashboard. The core design uses a main navigation bar to jump between key sections: 'Home' (Introduction), 'Prerequisites', 'Roadmap', 'Budget', and 'Resources'. This non-linear structure was chosen because a user's needs vary; a beginner might start at Prerequisites, while someone already studying might jump straight to a specific week in the Roadmap. The Roadmap itself is the central interactive component, using a tabbed interface for each of the four weeks. This prevents information overload by presenting the detailed daily plan in manageable chunks. User flow is designed to be self-directed, allowing exploration of costs, resources, or the study plan in any order, which is more usable than a rigid, linear document. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Total study plan. -> Goal: Organize. -> Viz/Presentation Method: Tabbed interface for weeks, with checklist cards for each day. -> Interaction: Clicking tabs shows/hides weekly content. Checkboxes allow progress tracking. -> Justification: Breaks down a dense 28-day plan into focused, digestible segments, enhancing user engagement and reducing cognitive load. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Budget Estimation. -> Goal: Inform/Compare. -> Viz/Presentation Method: A Doughnut Chart and a clear summary table. -> Interaction: Hovering over chart segments reveals cost details in tooltips. -> Justification: A visual chart makes the cost breakdown more immediate and easier to understand than text alone. -> Library/Method: Chart.js.
+        - Report Info: Prerequisite knowledge. -> Goal: Inform. -> Viz/Presentation Method: Simple checklist. -> Interaction: Users can mentally or physically check off items. -> Justification: A clear, scannable list of foundational requirements sets expectations effectively for beginners. -> Library/Method: HTML/Tailwind.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+        }
+        .tab-active {
+            background-color: #38bdf8;
+            color: #ffffff;
+            border-color: #0ea5e9;
+        }
+        .tab-inactive {
+            background-color: #ffffff;
+            color: #475569;
+            border-color: #cbd5e1;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-top: 5px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            accent-color: #38bdf8;
+            width: 1rem;
+            height: 1rem;
+        }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 400px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 350px; 
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen">
+        <header class="bg-white shadow-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex-shrink-0">
+                       <h1 class="text-2xl font-bold text-slate-800">eJPTv2 Interactive Success Roadmap</h1>
+                    </div>
+                    <nav class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#home" class="text-slate-600 hover:bg-slate-200 hover:text-slate-800 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                            <a href="#prerequisites" class="text-slate-600 hover:bg-slate-200 hover:text-slate-800 px-3 py-2 rounded-md text-sm font-medium">Prerequisites</a>
+                            <a href="#roadmap" class="text-slate-600 hover:bg-slate-200 hover:text-slate-800 px-3 py-2 rounded-md text-sm font-medium">Roadmap</a>
+                            <a href="#budget" class="text-slate-600 hover:bg-slate-200 hover:text-slate-800 px-3 py-2 rounded-md text-sm font-medium">Budget</a>
+                            <a href="#resources" class="text-slate-600 hover:bg-slate-200 hover:text-slate-800 px-3 py-2 rounded-md text-sm font-medium">Resources</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <section id="home" class="mb-12 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Your Journey to eJPT v2 Certification Starts Here</h2>
+                <p class="text-slate-600 mb-4">
+                    Welcome to your personalized, interactive guide for conquering the eJPTv2 (eLearnSecurity Junior Penetration Tester) certification. This roadmap is designed for beginners, providing a clear, step-by-step plan to build your skills from the ground up. The eJPT is a 100% practical certification that proves you have the skills to be a penetration tester, covering assessment methodologies and the full pentesting workflow. This guide breaks down the complex syllabus into a manageable 4-week schedule. Use the navigation to explore prerequisites, the daily study plan, budget estimates, and helpful resources.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="bg-sky-100 p-4 rounded-lg">
+                        <p class="text-sm font-medium text-sky-800">Exam Cost</p>
+                        <p class="text-2xl font-bold text-sky-900">$249 USD</p>
+                    </div>
+                    <div class="bg-sky-100 p-4 rounded-lg">
+                        <p class="text-sm font-medium text-sky-800">Format</p>
+                        <p class="text-2xl font-bold text-sky-900">100% Practical</p>
+                    </div>
+                    <div class="bg-sky-100 p-4 rounded-lg">
+                        <p class="text-sm font-medium text-sky-800">Duration</p>
+                        <p class="text-2xl font-bold text-sky-900">48 Hours</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="prerequisites" class="mb-12 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Prerequisites Checklist</h2>
+                 <p class="text-slate-600 mb-6">Before you dive into the main study plan, ensure you have a solid grasp of these fundamentals. These are not mandatory to start the INE course, as it covers them, but knowing them beforehand will make your journey much smoother and faster. This section helps you self-assess your readiness and identify any foundational areas you might need to brush up on.</p>
+                <div class="space-y-4">
+                    <div class="checklist-item"><input type="checkbox"><label><strong>Basic Networking Concepts:</strong> Understand the OSI model, TCP/IP, IP addressing (IPv4, Subnetting), and common ports/protocols (HTTP, DNS, SMB).</label></div>
+                    <div class="checklist-item"><input type="checkbox"><label><strong>Command-Line Proficiency:</strong> Comfortable using both Linux (bash) and Windows (cmd/PowerShell) terminals for file navigation, user management, and basic commands.</label></div>
+                    <div class="checklist-item"><input type="checkbox"><label><strong>IT Fundamentals:</strong> General knowledge of operating systems, web applications, and databases.</label></div>
+                    <div class="checklist-item"><input type="checkbox"><label><strong>Problem-Solving Mindset:</strong> A natural curiosity and persistence to troubleshoot issues and figure out how things work.</label></div>
+                </div>
+            </section>
+
+            <section id="roadmap" class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 text-center">The 4-Week Study Roadmap</h2>
+                <p class="text-slate-600 mb-6 text-center max-w-3xl mx-auto">This is the core of your preparation. The roadmap is structured into four weeks, each focusing on a specific set of skills from the eJPT syllabus. Each day has a clear checklist of topics to cover and practical tasks to perform. Click on a week to view your daily plan. Consistency is key, so try to stick to the schedule as much as possible.</p>
+                <div class="mb-6 flex flex-wrap justify-center gap-2">
+                    <button class="tab-btn px-6 py-2 rounded-md font-semibold border-2 tab-active" data-tab="week1">Week 1</button>
+                    <button class="tab-btn px-6 py-2 rounded-md font-semibold border-2 tab-inactive" data-tab="week2">Week 2</button>
+                    <button class="tab-btn px-6 py-2 rounded-md font-semibold border-2 tab-inactive" data-tab="week3">Week 3</button>
+                    <button class="tab-btn px-6 py-2 rounded-md font-semibold border-2 tab-inactive" data-tab="week4">Week 4</button>
+                </div>
+                
+                <div id="roadmap-content">
+                    <!-- Week 1 Content -->
+                    <div id="week1" class="tab-content">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2 text-center">Week 1: Foundations & Network Auditing</h3>
+                        <p class="text-slate-500 mb-6 text-center">Focus: Building a strong foundation in networking, assessment methodologies, and mastering network scanning with tools like Nmap.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Day 1-3 -->
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 1-2: Assessment Methodologies</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Study INE's "Penetration Testing Prerequisites" material.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Understand the pentesting lifecycle: Planning, Information Gathering, Exploitation, Post-Exploitation, Reporting.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Learn about the information gathering process (Passive vs. Active).</label></div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 3-4: Host & Network Auditing</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Deep dive into TCP/IP concepts and the Three-Way Handshake.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Study INE's "Host & Network Auditing" module.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Practice with Wireshark to analyze network traffic.</label></div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 5-7: Mastering Nmap</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Learn Nmap basics: `nmap -sV -sC -oN`</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Explore different scan types (SYN, UDP, Xmas).</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Practice Nmap Scripting Engine (NSE) for vulnerability scanning. Complete the Nmap room on TryHackMe.</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Week 2 Content -->
+                    <div id="week2" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2 text-center">Week 2: Enumeration & Web Application Auditing</h3>
+                        <p class="text-slate-500 mb-6 text-center">Focus: Learning to enumerate various services and diving into web application security with Burp Suite.</p>
+                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 8-10: Service Enumeration</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Enumerate SMB using tools like `enum4linux` and `smbclient`.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Enumerate NTP, NFS, DNS, and FTP.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Practice enumeration techniques on relevant TryHackMe/INE labs.</label></div>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 11-12: Intro to Web Apps & Burp Suite</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Study INE's "Web Application Auditing" module.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Understand HTTP/HTTPS, Cookies, and Sessions.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Set up and learn the core features of Burp Suite (Proxy, Repeater, Intruder).</label></div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 13-14: Web Attack Vectors</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Learn to identify vulnerabilities like XSS (Cross-Site Scripting) and SQL Injection.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Practice with directory enumeration tools like `gobuster` or `dirb`.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Analyze website source code for clues.</label></div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- Week 3 Content -->
+                    <div id="week3" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2 text-center">Week 3: Exploitation & Pivoting</h4>
+                        <p class="text-slate-500 mb-6 text-center">Focus: Gaining access to systems using Metasploit, performing password attacks, and learning how to move through a network.</p>
+                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 15-17: Metasploit Framework</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Study INE's "Penetration Testing: Preliminary Stages" labs.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Learn the Metasploit basics: `msfconsole`, `search`, `use`, `exploit`.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Understand payloads, encoders, and Meterpreter sessions.</label></div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 18-19: Password Attacks</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Learn about password cracking tools like John the Ripper and Hashcat.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Perform online password attacks (brute-force) with Hydra.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Understand the importance of good wordlists (e.g., rockyou.txt).</label></div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 20-21: Pivoting & Data Exfiltration</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Study INE's "Pivoting, Tunnelling, and Port Forwarding" section.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Understand the concept of routing and pivoting to access hidden networks.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Practice adding routes in Metasploit to pivot.</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Week 4 Content -->
+                    <div id="week4" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2 text-center">Week 4: Review, Practice & Final Prep</h4>
+                        <p class="text-slate-500 mb-6 text-center">Focus: Consolidating all your knowledge, practicing in exam-like environments, and preparing your mindset for the exam.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 22-24: Full Lab Walkthroughs</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Complete all the Black Box labs in the INE course.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Take detailed notes on your methodology for each box.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Try beginner-friendly boxes on TryHackMe or HackTheBox.</label></div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 25-26: Weakness Review</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Review your notes and identify topics you struggled with.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Re-do labs focusing on those specific areas (e.g., pivoting, web enumeration).</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Watch supplemental videos on topics you are weak in.</label></div>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg mb-2">Days 27-28: Final Prep & Rest</h4>
+                                <div class="checklist-item"><input type="checkbox"><label>Review the exam rules and ensure your environment is set up correctly.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Organize your notes and commands for quick reference.</label></div>
+                                <div class="checklist-item"><input type="checkbox"><label>Relax! Get a good night's sleep before the exam. You've prepared for this.</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="budget" class="mb-12 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Budget Estimation</h2>
+                <p class="text-slate-600 mb-6">Here’s a breakdown of the potential costs associated with the eJPTv2 certification. The primary expenses are the official training materials from INE and the exam voucher itself. While there are many free resources, the INE course is specifically tailored to the exam and is highly recommended. The chart below visualizes the cost distribution for the most common path.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                         <h3 class="text-xl font-bold text-slate-800 mb-2">Cost Breakdown</h3>
+                         <ul class="list-disc list-inside space-y-2 text-slate-700">
+                             <li>
+                                 <strong>INE Premium Subscription:</strong> ~$399/year (often on sale). This gives you access to the eJPT course materials and all other INE content.
+                             </li>
+                             <li>
+                                 <strong>Exam Voucher:</strong> $249. This is a one-time purchase for an exam attempt.
+                            </li>
+                             <li>
+                                 <strong>Total Estimated Cost:</strong> ~$648 USD
+                             </li>
+                         </ul>
+                         <p class="mt-4 text-sm text-slate-500">Note: Prices are approximate and can change. Look out for INE sales and bundles which might offer a better deal.</p>
+                    </div>
+                    <div>
+                        <div class="chart-container">
+                           <canvas id="budgetChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="resources" class="mb-12 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Essential Resources & Tools</h2>
+                <p class="text-slate-600 mb-6">Beyond the official INE course, leveraging other platforms and tools will significantly enhance your learning. This section provides a curated list of valuable resources. Familiarize yourself with the core tools, as you will be using them extensively during your practice and in the exam.</p>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Practice Platforms</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                           <li><a href="https://tryhackme.com" target="_blank" class="text-sky-600 hover:underline">TryHackMe</a>: Excellent for guided, hands-on learning paths.</li>
+                           <li><a href="https://hackthebox.com" target="_blank" class="text-sky-600 hover:underline">Hack The Box</a>: Great for challenge-based learning on live machines.</li>
+                           <li><a href="https://ine.com" target="_blank" class="text-sky-600 hover:underline">INE (Official)</a>: The primary source for course material and labs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Core Tools</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><span class="font-semibold">Nmap:</span> Network discovery and security auditing.</li>
+                            <li><span class="font-semibold">Metasploit:</span> Exploitation framework.</li>
+                            <li><span class="font-semibold">Burp Suite:</span> Web application analysis proxy.</li>
+                            <li><span class="font-semibold">Wireshark:</span> Network protocol analyzer.</li>
+                            <li><span class="font-semibold">Hydra:</span> Brute-force password cracker.</li>
+                            <li><span class="font-semibold">John the Ripper:</span> Offline password cracker.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Communities</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><a href="https://discord.com/invite/ine" target="_blank" class="text-sky-600 hover:underline">INE Discord Channel</a></li>
+                            <li><a href="https://www.reddit.com/r/eJPT/" target="_blank" class="text-sky-600 hover:underline">eJPT Subreddit</a></li>
+                        </ul>
+                    </div>
+                 </div>
+            </section>
+        </main>
+
+        <footer class="bg-white mt-auto">
+            <div class="container mx-auto py-4 px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+                <p>&copy; 2025 Your Success Roadmap. This is a suggested study guide and not an official document from INE/eLearnSecurity.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => {
+                        t.classList.remove('tab-active');
+                        t.classList.add('tab-inactive');
+                    });
+                    tab.classList.remove('tab-inactive');
+                    tab.classList.add('tab-active');
+
+                    contents.forEach(content => {
+                        if (content.id === target) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            const budgetChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['INE Premium Subscription', 'eJPTv2 Exam Voucher'],
+                    datasets: [{
+                        label: 'Cost Breakdown',
+                        data: [399, 249],
+                        backgroundColor: [
+                            'rgba(56, 189, 248, 0.7)',
+                            'rgba(14, 165, 233, 0.8)'
+                        ],
+                        borderColor: [
+                            '#0284c7',
+                            '#0c4a6e'
+                        ],
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                             labels: {
+                                color: '#475569',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
